@@ -2,4 +2,4 @@
 *.fmu
 *_log.txt
 *_result.txt
-
+*.swp

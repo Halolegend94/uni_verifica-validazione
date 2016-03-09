@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 fmu_name = compile_fmu("CadutaLibera", "caduta_libera.mo")
 CadutaLibera = load_fmu(fmu_name)
 
-res = CadutaLibera.simulate(final_time=200)
+res = CadutaLibera.simulate(final_time=10, options={'ncp':1000})
 v = res['v']
 p = res['p']
 t = res['time']

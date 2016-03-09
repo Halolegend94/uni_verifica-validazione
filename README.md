@@ -11,8 +11,6 @@ La struttura della repo è la seguente:
 - **Esercizi liberi**: esercizi svolti in maniera autonoma dai collaboratori
 - **Utilities**: cartella che contiene librerie e funzioni utili
 
-Per evitare conflitti e presentare diverse soluzioni, ogni collaboratore avrà la propria cartella (con il suo nome) all'interno delle cartelle __Esercizi__, __Esempi in classe__, __Esercizi liberi__.
-
 ###Collaboratori
 
 - Matteo Almanza

@@ -10,13 +10,19 @@ algorithm
 	  thrust := 0;
 	end if;
   elseif altitude > 1000 then
-	if velocity < -50 then
+	if velocity < -200 then
+	  thrust := 36350;
+	elseif velocity < -50 then
 	  thrust := 6000;
 	else
 	  thrust := 0;
 	end if;
   else
-	if velocity < -10 then
+	if velocity < -200 then
+	  thrust := 36350;
+	elseif velocity < -50 then
+	  thrust := 6000;
+	elseif velocity < -9 then
 	  thrust := 3000;
 	else
 	  thrust := 0;

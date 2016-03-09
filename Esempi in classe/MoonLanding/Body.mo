@@ -1,5 +1,5 @@
 model Body "generic body"
   Real mass;
-  String name;
+  parameter String name;
 end Body;
 

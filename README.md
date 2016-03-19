@@ -16,3 +16,4 @@ La struttura della repo è la seguente:
 - Matteo Almanza
 - Michele Laurenti
 - Cristian Di Pietrantonio
+- Gianluca Como 

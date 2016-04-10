@@ -23,14 +23,18 @@ class Model(object):
         :param dict(str: [int]) action_values:
             A dictionary { action name : list of action values }.
         """
-        self.fmu_path = fmu_path
-        self.state_vars = state_vars
-        self.action_vars = action_values.keys()
+        # store parameters
+        self.fmu_path      = fmu_path
+        self.state_vars    = state_vars
         self.action_values = action_values
-        self.var_map = var_map
-        self.time_step = time_step
+        self.var_map       = var_map
+        self.time_step     = time_step
+        # names of inputs
+        self.action_vars = action_values.keys()
+        # load model
         self.fmu = None
         self.__reset_model()
+        # set default options
         self.opts = self.fmu.simulate_options()
         self.opts['result_handling'] = 'memory'
         self.opts['CVode_options']['verbosity'] = 50
@@ -40,6 +44,9 @@ class Model(object):
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
     def __reset_model(self):
+        """
+        Loads the model / resets it if it's loaded.
+        """
         if self.fmu == None:
             self.fmu = load_fmu(self.fmu_path)
         else:
@@ -73,6 +80,7 @@ class Model(object):
     def __set(self, var, value):
         """
         Sets the value of state variable ``var``.
+        The value is set through a start parameter.
         """
         self.fmu.set(self.var_map[var], value)
 

@@ -2,4 +2,5 @@
 *.fmu
 *_log.txt
 *_result.txt
+*.pyc
 *.swp

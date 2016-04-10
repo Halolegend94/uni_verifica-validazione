@@ -92,11 +92,11 @@ class Model(object):
     # Simulation start & end time
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-    def __start_time(self, time):
-        return time * self.time_step
+    def __start_time(self, current_step):
+        return current_step * self.time_step
 
-    def __end_time(self, time):
-        return (time + 0.999999) * self.time_step
+    def __end_time(self, current_step):
+        return (current_step + 0.999999) * self.time_step
 
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     # Public methods
@@ -113,7 +113,7 @@ class Model(object):
         state = State(var_values)
         return state
 
-    def get_next_state(self, time, state, action):
+    def get_next_state(self, current_step, state, action):
         """
         Returns the state the model gets to after injection ``action``
         at ``time`` starting from ``state``.
@@ -121,8 +121,8 @@ class Model(object):
         self.__reset_model()
         self.__set_state(state)
         self.__set_input_action(action)
-        self.fmu.time = time
-        self.fmu.simulate(self.__start_time(time), self.__end_time(time), options = self.opts)
+        self.fmu.time = self.__start_time(current_step)
+        self.fmu.simulate(self.__start_time(current_step), self.__end_time(current_step), options = self.opts)
         return self.__get_state()
 
     def get_inputs(self):

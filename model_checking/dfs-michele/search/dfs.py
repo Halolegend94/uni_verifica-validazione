@@ -15,21 +15,21 @@ def dfs(model):
             print "Initial state is not admissible:"
             print state
             return False
-        time = 0
-        stack.push((state, time))
+        step = 0
+        stack.push((state, step))
         stack.push(model.get_actions())
     while stack.size() > 0:
         actions = stack.pop()
-        state, time = stack.peek()
+        state, step = stack.peek()
         try:
             action = actions.next()
             stack.push(actions)
-            new_state = model.get_next_state(time, state, action)
+            new_state = model.get_next_state(step, state, action)
             if new_state.admissible() and not state_set.contains(new_state):
-                new_time = time + 1
-                stack.push((new_state, new_time))
+                new_step = step + 1
+                stack.push((new_state, new_step))
                 if new_state.error():
-                    print "Found error at time {}, state is:".format(new_time)
+                    print "Found error at step {}, state is:".format(new_step)
                     print new_state
                     print_input_sequence(stack, inputs)
                     return False

@@ -4,3 +4,6 @@
 *_result.txt
 *.pyc
 *.swp
+*.aux
+*.log
+*.backup

@@ -1,2 +1,0 @@
-param1 = ciao, param2 = due, param3 = tre | output1 = 3, output2 = 44
-param1=secondariga,param2=sec,param3=tre|output1=334,output2=222

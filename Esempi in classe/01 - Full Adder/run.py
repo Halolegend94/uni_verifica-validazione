@@ -14,8 +14,6 @@ model_files = [f for f in os.listdir(".") if ".mo" in f]
 model_comp = compile_fmu(model_name, model_files)
 model = load_fmu(model_comp)
 
-#Simulazione: simuliamo tante volte quante sono le entries in params
-
 for x1 in range(0, 2):
 	for x2 in range(0, 2):
 		for c in range(0, 2):

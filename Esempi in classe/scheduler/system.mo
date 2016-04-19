@@ -30,9 +30,9 @@ function TurnNext
 algorithm
     new_turn := turn;
     if scheduler == id then
-        if turn == 1 and state2 == ProcessState.OutsideCS then
+        if turn == 1 and state1 == ProcessState.DontCare and state2 == ProcessState.OutsideCS then
             new_turn := 2;
-        elseif turn == 2 and state1 == ProcessState.OutsideCS then
+        elseif turn == 2 and state2 == ProcessState.DontCare and state1 == ProcessState.OutsideCS then
             new_turn := 1;
         end if;
     end if;

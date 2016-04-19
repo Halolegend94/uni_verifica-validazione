@@ -1,0 +1,199 @@
+
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 0.0 - 0.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 0.0 - 0.99999 seconds.
+Elapsed simulation time: 0.01 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 1.0 - 1.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 1.0 - 1.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 2.0 - 2.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 2.0 - 2.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 2.0 - 2.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 2.0 - 2.99999 seconds.
+Elapsed simulation time: 0.0 seconds.
+Final Run Statistics: Environment 
+
+ Number of steps                                 : 3
+ Number of function evaluations                  : 7
+ Number of Jacobian evaluations                  : 1
+ Number of function eval. due to Jacobian eval.  : 1
+ Number of error test failures                   : 0
+ Number of nonlinear iterations                  : 3
+ Number of nonlinear convergence failures        : 0
+
+Solver options:
+
+ Solver                   : CVode
+ Linear multistep method  : BDF
+ Nonlinear solver         : Newton
+ Linear solver type       : DENSE
+ Maximal order            : 5
+ Tolerances (absolute)    : 1e-06
+ Tolerances (relative)    : 0.0001
+
+Simulation interval    : 2.0 - 2.99999 seconds.
+Elapsed simulation time: 0.0 seconds.

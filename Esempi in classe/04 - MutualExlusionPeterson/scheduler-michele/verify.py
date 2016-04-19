@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../../model_checking/dfs-michele')
+sys.path.append('../../../model_checking/dfs-michele')
 
 from search import dfs
 from search import Model

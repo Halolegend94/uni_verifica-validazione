@@ -16,13 +16,11 @@ equation
 
 when sample(0, T) then
 
-if (pre(y) or ((abs(x)) > 0.1 and (time > 1))) 
-then y = true; 
+if ((pre(y) or abs(x) > 0.1) and (time > 1))
+then y = true;
 else y = false;
 end if;
 
 end when;
-
-
 
 end Environment;

@@ -11,4 +11,4 @@ equation
     when not properties then
         y = true;
     end when;
-end Environment;
+end Monitor;

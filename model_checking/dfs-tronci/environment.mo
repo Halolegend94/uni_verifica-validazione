@@ -1,4 +1,3 @@
-
 class Environment
 
 constant Integer H = 4;
@@ -39,7 +38,7 @@ end next;
 
 initial equation
 
-x.adm = adm0; 
+x.adm = adm0;
 x.avg = avg0;
 x.n = n0;
 x.depth = depth0;

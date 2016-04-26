@@ -36,7 +36,7 @@ class Process
     algorithm
         new_state := state;
         new_timer := timer;
-        new_turn := turn;
+        new_turn := 0;
         if state == ProcessState.DontCare then
             if not (true) or (fire_transition and turn == 0) then
                 new_state := ProcessState.DidTest;

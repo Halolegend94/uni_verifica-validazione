@@ -8,6 +8,8 @@ import numpy
 fmu_path = compile_fmu("FisherMutualExclusion", ['closed_system.mo', 'cs_variable.mo', 'process.mo', 'monitor.mo', 'environment.mo'])
 model = load_fmu(fmu_path)
 
+# l'esempio che segue fallisce con test_time = 1.0, set_time = 0.5
+# time_step = 0.1
 time        = [ 0.0,   0.1,   0.1,   0.8,   0.8,   1.3,   1.4]
 transition1 = [True,  True,  True,  True, False, False, False]
 transition2 = [True,  True, False, False, False,  True,  True]

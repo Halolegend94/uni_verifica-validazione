@@ -1,11 +1,11 @@
 
 model FisherMutualExclusion
-    constant Real time_step = 0.05;
-    constant Real length_sec = 5;
+    constant Real time_step = 0.1;
+    constant Real length_sec = 2;
     constant Integer length_steps = integer(length_sec / time_step);
 
-    constant Real test_time = 0.2;
-    constant Real set_time = 0.1;
+    constant Real test_time = 1.0;
+    constant Real set_time = 0.5;
 
     Process p1(id = 1, Tau = time_step, min_drift = 0.2, max_drift = 0.0, test_time = test_time, set_time = set_time);
     Process p2(id = 2, Tau = time_step, min_drift = 0.0, max_drift = 0.1, test_time = test_time, set_time = set_time);

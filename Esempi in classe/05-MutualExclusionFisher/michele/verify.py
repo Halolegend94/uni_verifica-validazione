@@ -11,10 +11,10 @@ fmu_path = compile_fmu("FisherMutualExclusion", ['closed_system.mo', 'cs_variabl
 model = load_fmu(fmu_path)
 
 actions = {
-    'env.d.transition1'    : [True, False],
-    'env.d.transition2'    : [True, False],
-    'env.d.drift1'         : [-0.1, 0.0],
-    'env.d.drift2'         : [0.0],
+    'env.d.transition1'    : [False, True],
+    'env.d.transition2'    : [False, True],
+    'env.d.drift1'         : [-0.2, 0.0],
+    'env.d.drift2'         : [0.0, 0.1],
 }
 
 state_vars = [

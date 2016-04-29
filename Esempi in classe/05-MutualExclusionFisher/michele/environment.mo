@@ -37,7 +37,7 @@ initial equation
     d.drift1 = drift1_start;
     d.drift2 = drift2_start;
 equation
-    when sample(Tau/2, Tau) then
+    when sample(0, Tau) then
         s.adm = pre(s.adm) and s.count <= length;
         s.count = pre(s.count) + 1;
         d.transition1 = pre(d.transition1);

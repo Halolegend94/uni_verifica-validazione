@@ -96,7 +96,7 @@ class Model(object):
         return current_step * self.time_step
 
     def __end_time(self, current_step):
-        return (current_step + 1) * self.time_step
+        return (current_step + 0.999999) * self.time_step
 
     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     # Public methods

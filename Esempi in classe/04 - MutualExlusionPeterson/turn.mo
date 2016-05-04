@@ -17,12 +17,12 @@ output State y;
 
 algorithm
 
-if (k = 3)
-then 
-    if (turn == 1) and (x1 == 0) and (x2 == 1) then y := 2 end if;
+if (k == 3)
+then
+    if (turn == 1) and (x1 == 0) and (x2 == 1) then y := 2; end if;
 
-    if (turn == 2) and (x2 == 0) and (x1 == 1) then y := 1 end if;
- 
+    if (turn == 2) and (x2 == 0) and (x1 == 1) then y := 1; end if;
+
 else
      y := x;
 end if;

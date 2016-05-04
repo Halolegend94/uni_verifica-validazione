@@ -15,13 +15,13 @@ input Integer x;
 input Integer u;
 input Integer turn;
 input Integer k;
-output State y;
+output Integer y;
 
 algorithm
 
 if (k == id)
 
-then 
+then
     if (x == 0) then y := 1 end if;
 
     if (x == 1) and (u == 0) then y := 2; end if;

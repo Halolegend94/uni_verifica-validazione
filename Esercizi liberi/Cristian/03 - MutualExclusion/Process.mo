@@ -1,35 +1,39 @@
+/*global definition*/
+type ProcessState = enumeration(outside, waiting, inside);
+
 class Process
-
-   Integer state;
-   Integer otherProcessState;
-   Integer turn;
    parameter Integer ID = 0;
-   parameter Integer initState = 0;
-   parameter Integer T = 1;
+   parameter Real T = 1;
+   ProcessState myState;
+   ProcessState otherProcessState;
+   Integer turn;
 
-   /*compute next state of the process. Would be nice to have this task outside of the process!*/
    function nextState
-      input Integer myID;
-      input Integer currentState;
-      input Integer otherProcessState;
+      input ProcessState currentState;
+      input ProcessState otherProcState;
+      input Integer ID;
       input Integer turn;
-      output Integer newState;
+      output ProcessState newState;
 
    algorithm
-      if(currentState == 0) then newState := 1; //go waiting
-      else if(currentState == 1 and turn == myID
-          and otherProcessState != 2) then newState := 2; //go critical section
-      else if(currentState == 2) then newState := 0; //go outside the critical section
-      else newState := currentState; //else don't move
+      if(currentState ==  ProcessState.outside) then
+         newState :=  ProcessState.waiting;
+      elseif(currentState ==  ProcessState.waiting and turn == ID) then
+         newState :=  ProcessState.inside;
+      elseif(currentState ==  ProcessState.inside) then
+         newState :=  ProcessState.outside;
+      else
+         newState := currentState;
       end if;
+
    end nextState;
 
 initial equation
-   state = initState;
+   myState =  ProcessState.outside;
 
 equation
    when sample(0, T) then
-      state = nextState(ID, pre(state), otherProcessState, turn);
+      myState = nextState(pre(myState), pre(otherProcessState), ID, pre(turn));
    end when;
 
 end Process;

@@ -1,17 +1,33 @@
 class Scheduler "This is the Scheduler of the system"
 
    Integer turn;
-   Integer state1;
-   Integer state2;
+   ProcessState state1;
+   ProcessState state2;
+   parameter Integer T = 1;
 
    function computeTurn
 
-   algorithm
       input Integer oldturn;
-      input Integer state1;
-      input Integer state2;
+      input ProcessState state1;
+      input ProcessState state2;
       output Integer newTurn;
-      
+
+   algorithm
+      newTurn:= oldturn;
+      if(oldturn == 1 and state1 ==  ProcessState.outside) then
+         newTurn := 2;
+      elseif(oldturn == 2 and state2 ==  ProcessState.outside) then
+         newTurn := 1;
+      end if;
+
    end computeTurn;
+
+initial equation
+   turn = 1;
+
+equation
+   when sample(0, T) then
+      turn = computeTurn(pre(turn), state1, state2);
+   end when;
 
 end Scheduler;

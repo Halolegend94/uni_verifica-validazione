@@ -1,6 +1,7 @@
 # Script utlizzato per laciare i modelli
 # Autore: Cristian Di Pietrantonio
 
+
 # import necessari
 from pymodelica import compile_fmu
 from pyfmi import load_fmu
@@ -40,4 +41,4 @@ model = load_fmu(model_comp)
 maxt = 10
 res = model.simulate(start_time=0, final_time=maxt, options={'ncp':1000})
 
-plottaDati(3, 2, ['s.x', 's.d.noise', 's.d.failures', 'm.y'], res)
+plottaDati(3, 2, ['s.x', 's.d.noise', 's.d.failures', 'm.y', 'e.current.adm', 'e.current.avg'], res)

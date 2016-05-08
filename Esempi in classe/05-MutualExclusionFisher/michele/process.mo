@@ -68,5 +68,3 @@ equation
     end when;
     der(process_time) = 1.0 + process_drift;
 end Process;
-
-

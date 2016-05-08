@@ -1,0 +1,38 @@
+FMUException                              Traceback (most recent call last)
+/home/cristian/Documenti/Repo V&V/Esempi in classe/05-MutualExclusionFisher/michele/closed_system_unittest.py in <module>()
+     21 input_tuple = (['env.d.transition1', 'env.d.transition2', 'env.d.drift1', 'env.d.drift2'], inputs)
+     22 
+---> 23 res = model.simulate(0, 1.5, input = input_tuple)
+     24 
+     25 pyplot.figure(1)
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/pyfmi/fmi.so in pyfmi.fmi.FMUModelME1.simulate (src/pyfmi/fmi.c:34018)()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/pyfmi/fmi.so in pyfmi.fmi.ModelBase._exec_simulate_algorithm (src/pyfmi/fmi.c:5738)()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/pyfmi/fmi_algorithm_drivers.pyc in solve(self)
+    674         Runs the simulation.
+    675         """
+--> 676         self.simulator.simulate(self.final_time, self.ncp)
+    677 
+    678     def get_result(self):
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/assimulo/ode.so in assimulo.ode.ODE.simulate (assimulo/ode.c:6065)()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/assimulo/ode.so in assimulo.ode.ODE.simulate (assimulo/ode.c:5548)()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/assimulo/explicit_ode.so in assimulo.explicit_ode.Explicit_ODE._simulate (assimulo/explicit_ode.c:4385)()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/assimulo/explicit_ode.so in assimulo.explicit_ode.Explicit_ODE._simulate (assimulo/explicit_ode.c:3967)()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/pyfmi/simulation/assimulo_interface.pyc in handle_event(self, solver, event_info)
+    335 
+    336         while eInfo.iterationConverged == False:
+--> 337             self._model.event_update(intermediateResult=False)
+    338 
+    339             eInfo = self._model.get_event_info()
+
+/home/cristian/Sviluppo/JModelica/jmodelica/Python/pyfmi/fmi.so in pyfmi.fmi.FMUModelME1.event_update (src/pyfmi/fmi.c:32533)()
+
+FMUException: Failed to update the events at time: 1.000000E-01.
+

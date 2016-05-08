@@ -9,13 +9,13 @@ class Environment "This is a the environment of the system."
    constant Real omega = 10 * 3.14;
    parameter Real noise0 = -1;
    parameter Real failures0 = -1;
-   parameter Real H = 5;
+   constant Integer H = 2;
 
    EnvironmentState prec, current; //relevant states of the environment
    Disturb d; //disturb from the environment
 
    /*constants*/
-   constant Real treshold = 0.5; //represents the admissibility of a disturb state 
+   constant Real treshold = 1.5; //represents the admissibility of a disturb state
 
    // ===============================================================
    // next
@@ -38,22 +38,21 @@ class Environment "This is a the environment of the system."
    end next;
 
 initial equation
-   prec.avg = avg0;
-   prec.depth = depth0;
-   prec.adm = adm0;
-   prec.n = n0;
+   current.avg = avg0;
+   current.depth = depth0;
+   current.adm = adm0;
+   current.n = n0;
    d.noise = noise0;
    d.failures = failures0;
 
 equation //dynamic of the environment
    when sample(0, T) then
-      d.noise = sin(omega * time);
-      d.failures = cos(omega * time);
+      d.noise = pre(d.noise);
+      d.failures = pre(d.failures);
       prec.avg = pre(current.avg);
       prec.depth = pre(current.depth);
       prec.adm = pre(current.adm);
       prec.n = pre(current.n);
-
       current = next(prec, d);
    end when;
 

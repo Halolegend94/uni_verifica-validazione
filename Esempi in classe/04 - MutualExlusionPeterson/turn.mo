@@ -12,7 +12,7 @@ function next
 input Integer turn;
 input Integer x1;
 input Integer x2;
-turn Integer k;
+input Integer k;
 output State y;
 
 algorithm

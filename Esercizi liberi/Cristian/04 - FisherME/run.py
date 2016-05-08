@@ -36,4 +36,4 @@ model = load_fmu(model_comp)
 maxt = 10
 res = model.simulate(start_time=0, final_time=maxt, options={'ncp':1000})
 
-plottaDati(3, 2, ['process1.myState', 'process2.myState'], res)
+plottaDati(3, 2, ['proc1.myState', 'proc2.myState'], res)

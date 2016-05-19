@@ -5,26 +5,21 @@ from PyLib.HashSet import HashSet
 from PyLib.Stack import Stack
 from PyLib.ModelState import ModelState
 class Search:
-
-    def dfs(self):
+    def dfs(self, model, actions):
         H = HashSet()
         S = Stack()
-        M = ModelState()
-
-        x = M.get_model_next_state()
-        if(not(M.adm(x))):
+        nodevisited = 0
+        AG = ActionGenerator(actions)
+        x = model.get_model_next_state()
+        if(not(model.admissible(x))):
             print "System has no admissible state"
-            sys.exit()
-
-        elif(M.isUnsafe(x)):
-            print "System does not satisfy specifications at initial state %r" % map(str, x)
             sys.exit()
 
         state_time = {}
         state_time['state'] = x
-        state_time['time'] = M.get_init_time()
+        state_time['time'] = model.get_init_time()
         S.push(state_time)
-        S.push(M.init_actions())
+        S.push(AG)
 
         while(not(S.isEmpty())):
 
@@ -32,20 +27,21 @@ class Search:
             state_time = S.head()
             x = state_time['state']
             currentTime = state_time['time']
-
-            if(M.next_action(a)):
+            out = a.next()
+            nodevisited += 1
+            if(out != None):
                 S.push(a)
-                newState = M.get_model_next_state(x, a)
-                if(M.adm(newState) and not(H.contains(newState))):
-                    newTime = M.advance_time(currentTime)
+                newState = model.get_model_next_state(x, out)
+                if(model.admissible(newState) and not(H.contains(newState))):
+                    newTime = model.advance_time(currentTime)
                     state_time = {}
                     state_time['state'] = newState
                     state_time['time'] = newTime
                     S.push(state_time)
-                    if(M.isUnsafe(newState)):
+                    if(model.isUnsafe(newState)):
                         print "System does not satisfy requirements as shown by this trace: %r" % S.printstack()
                         sys.exit()
-                    S.push(M.init_actions())
+                    S.push(ActionGenerator(actions))
             else:
                 H.insert(x)
                 state_time = S.pop()

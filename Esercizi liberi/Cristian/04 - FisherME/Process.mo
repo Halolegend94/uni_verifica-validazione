@@ -2,15 +2,14 @@
 type ProcessState = enumeration(outsideCS, request, waiting, insideCS);
 class Process
 
-   parameter Integer T = 1;
+   parameter Integer T = 1;         //timestep
    parameter Integer ID = 1;
-   parameter Real drift = 0.2;
+   parameter Integer a = 4, b = 7;
    Real timer;
-   Integer kr;                   //read buffer
-   Integer kw;                   //write buffer
+   Integer kr;
+   Integer kw;
+   Real drift;
    ProcessState myState;
-
-   parameter Integer a = 4, b = 7;       //waiting times
 
 initial equation
    myState = ProcessState.outsideCS;
@@ -25,12 +24,10 @@ equation
          myState = ProcessState.request;
          kw = pre(kw);
          reinit(timer, 0.0);
-
       elseif (pre(myState) == ProcessState.request and pre(timer) > a) then
          kw = ID;
          myState = ProcessState.waiting;
          reinit(timer, 0.0);
-
       elseif (pre(myState) == ProcessState.waiting and pre(timer) > b) then
          if (pre(kr) == ID) then
             kw = pre(kw);

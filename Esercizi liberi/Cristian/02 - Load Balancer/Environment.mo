@@ -5,10 +5,10 @@ class Environment "This is a the environment of the system."
    parameter Boolean adm0 = true;
    parameter Integer n0 = 0;
    parameter Integer depth0 = 0;
+   parameter Real noise0 = 0;
+   parameter Real failures0 = -1;
    parameter Real T = 0.25;
    constant Real omega = 10 * 3.14;
-   parameter Real noise0 = -1;
-   parameter Real failures0 = -1;
    constant Integer H = 2;
 
    EnvironmentState prec, current; //relevant states of the environment

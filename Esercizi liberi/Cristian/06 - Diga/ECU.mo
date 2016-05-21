@@ -1,8 +1,13 @@
 model ECU
 
    parameter Real T = 1;
+   parameter Integer pOpen0 = 0;
+
    output Integer pOpen;
    input Real x; //water level
+
+initial equation
+   pOpen = pOpen0;
 
 equation
    when sample(0, T) then
@@ -15,5 +20,4 @@ equation
       end if;
       /*Domande. Possiamo misurare solo x o anche i disturbi ?*/
    end when;
-
 end ECU;

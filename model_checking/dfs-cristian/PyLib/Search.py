@@ -4,6 +4,7 @@ import time
 from PyLib.HashSet import HashSet
 from PyLib.Stack import Stack
 from PyLib.ModelState import ModelState
+
 class Search:
     def dfs(self, model, actions):
         H = HashSet()
@@ -11,7 +12,8 @@ class Search:
         nodevisited = 0
         AG = ActionGenerator(actions)
         x = model.get_model_next_state()
-        if(not(model.admissible(x))):
+
+        if(not(model.isAdmissible(x))):
             print "System has no admissible state"
             sys.exit()
 
@@ -24,15 +26,14 @@ class Search:
         while(not(S.isEmpty())):
 
             a = S.pop() #get the last transition explored
-            state_time = S.head()
+            state_time = S.top()
             x = state_time['state']
             currentTime = state_time['time']
             out = a.next()
-            nodevisited += 1
             if(out != None):
                 S.push(a)
-                newState = model.get_model_next_state(x, out)
-                if(model.admissible(newState) and not(H.contains(newState))):
+                newState = model.get_model_next_state(x, out, currentTime)
+                if(model.isAdmissible(newState) and not(H.contains(newState))):
                     newTime = model.advance_time(currentTime)
                     state_time = {}
                     state_time['state'] = newState
@@ -43,5 +44,6 @@ class Search:
                         sys.exit()
                     S.push(ActionGenerator(actions))
             else:
+                nodevisited += 1
                 H.insert(x)
                 state_time = S.pop()

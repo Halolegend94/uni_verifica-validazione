@@ -43,7 +43,7 @@ equation
    when sample(0, T) then
       prec.adm = pre(current.adm);
       prec.depth = pre(current.depth);
-      d.riverLoad = 5.5 + (4.5 * sin(3.14 * 6 * time));
+      d.riverLoad = 5.5 + (4.5 * sin(3.14 * 4 * time));
       current = next(prec, d);
    end when;
 

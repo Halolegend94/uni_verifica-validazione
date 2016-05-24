@@ -5,14 +5,19 @@ from PyLib.Search import Search
 from PyLib.ModelState import ModelState
 
 #statekeys
-statekeys = ['s.x', 'e.current.depth', 'e.current.adm', 's.pOpen']
+statekeys = ['ec.quantX0', 'e.adm0', 'm.y0']
 
 getdict = {}
-getdict['s.x0'] = 's.x'
+getdict['s.x0'] = 's.'
 getdict['e.riverLoad0'] = 'e.d.riverLoad'
 getdict['ec.pOpen0'] = 'ec.pOpen'
+getdict['ec.quantX0'] = 'ec.quantX'
+getdict['e.adm0'] = 'e.current.adm'
 getdict['m.y0'] = 'm.y'
 
-inputs = ['e']
+params = ['e.riverLoad0']
+m = ModelState(statekeys, params, getdict, 'ClosedSystem', 'e.T', 'e.adm0', 'm.y0')
 
-m = ModelState(statekeys, getdict, inputs, sysName, timeStepVarName, admissibleVar, unsafeVar)
+actions = range(1, 10, 1)
+d = Search()
+d.dfs(m, actions, 3)

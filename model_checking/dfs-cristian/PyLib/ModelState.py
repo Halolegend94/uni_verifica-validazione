@@ -20,7 +20,6 @@ class ModelState:
         self.statekeys = statekeys
         self.getdict = getdict
         self.params = params
-
         self.TimeZero = 0
         self.TimeStep = 1
         self.t = 0 #current time in TimeStep stemps
@@ -29,12 +28,15 @@ class ModelState:
         model_files = [f for f in os.listdir(".") if ".mo" in f]
         fmu = compile_fmu(sysName, model_files)
         self.model = load_fmu(fmu)
-
+        self.model.initialize()
         self.opts = self.model.simulate_options()
         self.opts['result_handling'] = 'memory'
         self.opts['CVode_options']['verbosity'] = 50 # No output
+        self.opts['initialize'] = False # No output
 
         self.TimeStep = self.model.get(timeStepVarName) #Update timestep
+        self.admissibleVar = admissibleVar
+        self.unsafeVar = unsafeVar
         return
 
 
@@ -43,7 +45,7 @@ class ModelState:
         return self.t * self.TimeStep
 
     def __end_time(self):
-        return ((self.t + 0.99999) * self.TimeStep)
+        return ((self.t + 2) * self.TimeStep)
 
     #functions to get and set parameters
     def model_get(self, key):
@@ -53,7 +55,7 @@ class ModelState:
     def get_model_state(self):
         x = {}
         for k in self.statekeys:
-            x[k] = self.model.get(self.getdict[k])
+            x[k] = self.model.get(self.getdict[k])[0]
         return x
 
     #manipulate time
@@ -84,20 +86,25 @@ class ModelState:
     def get_model_next_state(self, x = None, a = None, mytime = None):
         if(x == None):
             return self.get_model_state()
+
         else:
             self.model.reset()
             self.set_model_state(x)
             self.set_model_params(a)
+            self.model.initialize()
+            self.model.event_update()
             self.set_model_time(mytime)
             # compute next state
+            print self.__start_time(), self.__end_time()
             self.model.simulate(start_time=self.__start_time(), final_time=self.__end_time(), options=self.opts)
             return self.get_model_state()
 
 
+
     #check if the sate is admissible
     def isAdmissible(self, x):
-        return x[admissibleVar]
+        return x[self.admissibleVar]
 
     #check if the state is unsafe
     def isUnsafe(self, x):
-        return x[unsafeVar]
+        return x[self.unsafeVar]

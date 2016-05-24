@@ -25,4 +25,4 @@ model = load_fmu(model_comp)
 maxt = 1000
 res = model.simulate(start_time=0, final_time=maxt, options={'ncp':1000})
 
-plt.plotData(2, 2, ['s.x', 's.pOpen', 'm.y', 's.riverLoad'], res)
+plt.plotData(2, 2, ['ec.quantX', 's.pOpen', 'm.y', 's.riverLoad'], res)

@@ -6,14 +6,14 @@ class ActionGenerator:
         self.index = 0
 
 
-    def next():
+    def next(self):
         temp = self.index
         self.index = self.index + 1
         if(temp < self.cardinality):
-            out = [] * len(args)
-            for i in range(len(args)):
-                out[i] = args[i][temp % len(args[i])]
-                temp = temp / len(args[i])
+            out = [None] * len(self.args)
+            for i in range(len(self.args)):
+                out[i] = self.args[i][temp % len(self.args[i])]
+                temp = temp / len(self.args[i])
             return out
-        else
+        else:
             return None

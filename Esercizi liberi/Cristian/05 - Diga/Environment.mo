@@ -1,6 +1,5 @@
 record EnvironmentState
    Boolean adm;
-   Integer depth;
 end EnvironmentState;
 
 record Disturbance
@@ -10,7 +9,6 @@ end Disturbance;
 model Environment
 
    parameter Real T = 1; //timestep
-   constant Integer MaxDepth = 20;
    constant Real MaxLoad = 10;
    constant Real MinLoad = 1;
    parameter Boolean adm0 = true;
@@ -25,9 +23,7 @@ model Environment
       output EnvironmentState y;
 
    algorithm
-
-      y.depth := x.depth + 1;
-      if(x.adm and y.depth <= MaxDepth and d.riverLoad >= MinLoad and d.riverLoad <= MaxLoad) then
+      if(x.adm and d.riverLoad >= MinLoad and d.riverLoad <= MaxLoad) then
          y.adm := true;
       else
          y.adm := false;
@@ -37,12 +33,10 @@ model Environment
 initial equation
    d.riverLoad = riverLoad0;
    current.adm = adm0;
-   current.depth = depth0;
 
 equation
    when sample(0, T) then
       prec.adm = pre(current.adm);
-      prec.depth = pre(current.depth);
       d.riverLoad = 5.5 + (4.5 * sin(3.14 * 4 * time));
       current = next(prec, d);
    end when;

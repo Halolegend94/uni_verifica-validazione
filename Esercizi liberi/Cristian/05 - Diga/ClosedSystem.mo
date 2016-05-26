@@ -1,14 +1,16 @@
 model ClosedSystem
 
    System s;
-   Environment e;
+   //Environment e;
    Monitor m;
    ECU ec;
+
+   input Real riverLoad;
 
 equation
    s.x = m.x;
    ec.x = s.x;
    s.pOpen = ec.pOpen;
-   e.d.riverLoad = s.riverLoad;
+   riverLoad = s.riverLoad;
 
 end ClosedSystem;

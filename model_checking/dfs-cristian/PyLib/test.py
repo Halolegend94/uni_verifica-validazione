@@ -1,9 +1,6 @@
 from RandomActionGenerator import RandomActionGenerator
 import matplotlib.pyplot as plt
-c = RandomActionGenerator(1, [[0, 20]])
-out = []
-for i in range(10000):
-    out += c.next()
+c = RandomActionGenerator([[54, 60], [5, 250], [0, 12], [34, 50]])
 
-plt.hist(out, 20)
-plt.show()
+for i in c.randomMatrix(10, 10):
+    print i

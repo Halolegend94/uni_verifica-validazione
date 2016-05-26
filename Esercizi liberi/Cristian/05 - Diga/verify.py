@@ -1,23 +1,11 @@
 import sys
+import os
 sys.path.append("../../../model_checking/dfs-cristian")
 
-from PyLib.Search import Search
-from PyLib.ModelState import ModelState
+from PyLib.Montecarlo import Montecarlo
 
-#statekeys
-statekeys = ['ec.quantX0', 'e.adm0', 'm.y0']
+model_files = [f for f in os.listdir(".") if ".mo" in f]
 
-getdict = {}
-getdict['s.x0'] = 's.x'
-getdict['e.riverLoad0'] = 'e.d.riverLoad'
-getdict['ec.pOpen0'] = 'ec.pOpen'
-getdict['ec.quantX0'] = 'ec.quantX'
-getdict['e.adm0'] = 'e.current.adm'
-getdict['m.y0'] = 'm.y'
-
-params = ['e.riverLoad0']
-m = ModelState(statekeys, params, getdict, 'ClosedSystem', 'ec.T', 'e.adm0', 'm.y0')
-
-actions = range(1, 10, 1)
-d = Search()
-d.dfs(m, actions, 3)
+m = Montecarlo(model_files, "ClosedSystem", ['riverLoad'], [[1, 10]], 'm.y')
+res = m.verify(0.8, 0.01)
+print "errors: {}".format(len(res))

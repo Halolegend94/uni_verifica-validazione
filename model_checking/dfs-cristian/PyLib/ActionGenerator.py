@@ -1,6 +1,6 @@
 class ActionGenerator:
 
-    def __init__(self, *args):
+    def __init__(self, args):
         self.args = args
         self.cardinality = reduce(lambda x, y : x * y, [len(i) for i in args])
         self.index = 0

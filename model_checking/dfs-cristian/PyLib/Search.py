@@ -33,8 +33,7 @@ class Search:
             if(out != None):
                 S.push(a)
                 newState = model.get_model_next_state(x, out, currentTime)
-                print newState
-                if(model.isAdmissible(newState) and not(H.contains(newState)) and currentDepth <= maxDepth):
+                if(model.isAdmissible(newState) and not(H.contains(newState)) and currentDepth < maxDepth):
                     newTime = model.advance_time(currentTime)
                     print "new time> ", newTime
                     state_time = {}

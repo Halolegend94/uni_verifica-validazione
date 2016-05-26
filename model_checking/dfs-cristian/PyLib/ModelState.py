@@ -45,7 +45,7 @@ class ModelState:
         return self.t * self.TimeStep
 
     def __end_time(self):
-        return ((self.t + 2) * self.TimeStep)
+        return ((self.t + 0.9999) * self.TimeStep)
 
     #functions to get and set parameters
     def model_get(self, key):
@@ -95,7 +95,7 @@ class ModelState:
             self.model.event_update()
             self.set_model_time(mytime)
             # compute next state
-            print self.__start_time(), self.__end_time()
+            print 'interval: ', self.__start_time(), self.__end_time()
             self.model.simulate(start_time=self.__start_time(), final_time=self.__end_time(), options=self.opts)
             return self.get_model_state()
 

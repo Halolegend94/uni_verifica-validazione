@@ -4,7 +4,7 @@ import math
 from RandomActionGenerator import RandomActionGenerator
 class Montecarlo:
 
-    def __init__(self, files, modelName, input_vars, limits, unsafeVar):
+    def __init__(self, files, modelName, input_vars, limits, simTime, numPoints, unsafeVar):
         if len(input_vars) != len(limits):
             print "input_vars and limits lengths differ"
             return
@@ -18,13 +18,13 @@ class Montecarlo:
         self.unsafeVar = unsafeVar
         self.length = len(limits)
         self.limits = limits
+        self.simulationTime = simTime
+        self.timePoints = numPoints
         self.input_vars = input_vars
         return
 
-    def verify(self, delta, sigma):
+    def verify(self, delta, sigma, onlyExtremes):
         #set some variables
-        simulationTime = 100 #seconds
-        timePoints = 1000
 
         #compute number of trials
         M = int(math.ceil(math.log(delta) / math.log(1 - sigma)))
@@ -35,16 +35,14 @@ class Montecarlo:
         for i in xrange(M): #run M simulations
             print "Simultation: {}/{}".format(i + 1, M)
             #set up input object
-            distMatrix = gen.randomMatrix(simulationTime, timePoints)
+            distMatrix = gen.randomMatrix(self.simulationTime, self.timePoints, onlyExtremes)
             input_object = (self.input_vars, distMatrix)
             self.model.initialize()
-            res = self.model.simulate(start_time=0, final_time=simulationTime, input=input_object, options=self.opts)
+            res = self.model.simulate(start_time=0, final_time=self.simulationTime, input=input_object, options=self.opts)
 
             #check if there is an unsafe state
-            y = res[self.unsafeVar];
-            for j in xrange(len(y)):
-                if y[j] == 1:
-                    results.append(i, distMatrix[j]) #run number and input sequence at failure time
-
+            y = self.model.get(self.unsafeVar)[0]
+            if y == 1:
+                result.append([i, distMatrix]) #run number and input sequence at failure time
             self.model.reset()
         return result;

@@ -19,14 +19,28 @@ class RandomActionGenerator:
             out[i] = minV + t * (random.randint(0, 1000) / 1000.0)
         return out
 
-    def randomMatrix(self, numSeconds, timepointsNumber):
+    def randomExtremesSequence(self):
+        out = [None] * self.length
+        for i in range(self.length):
+            minV = self.limits[i][0]
+            maxV = self.limits[i][1]
+            t = (maxV - minV)
+            out[i] = minV + t * random.randint(0, 1)
+        return out
+
+    def randomMatrix(self, numSeconds, timepointsNumber, onlyExtremes):
 
         "create time column"
         timepoints = N.linspace(0., numSeconds, timepointsNumber) #create time points
         "create matrix rows"
         matrix = N.zeros((timepointsNumber, self.length + 1))
         for i in xrange(timepointsNumber):
-            row = self.randomSequence()
+            row = None
+            if onlyExtremes:
+                row = self.randomExtremesSequence()
+            else:
+                row = self.randomSequence()
+
             matrix[i][0] = timepoints[i]
             for j in xrange(self.length):
                 matrix[i][1 + j] = row[j]

@@ -8,7 +8,7 @@ end Disturbance;
 
 model Environment
 
-   parameter Real T = 1; //timestep
+   parameter Real T = 50; //timestep
    constant Real MaxLoad = 10;
    constant Real MinLoad = 1;
    parameter Boolean adm0 = true;

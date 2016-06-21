@@ -17,6 +17,7 @@ class System "this class models the system we have built"
 initial equation
    x = x0;
    z = 0;
+
 equation
    der(x) = a*x + u + d.noise + d.failures;
    der(z) = 0 - x;

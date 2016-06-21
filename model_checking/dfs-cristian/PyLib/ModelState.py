@@ -15,13 +15,13 @@ class ModelState:
     #   - tumeStempVarName. the name of the timestep variable in the environment model
     #   - admissibleVar: the name of the variable that store the admissibility of a state
     #   - unsafeVar: the name of the variable inside the monitor that establishes id the system is unsafe
-    def __init__(self, statekeys, params, getdict, sysName, timeStepVarName, admissibleVar, unsafeVar):
+    def __init__(self, statekeys, params, getdict, sysName, timeStep, admissibleVar, unsafeVar):
         #set the instance variables
         self.statekeys = statekeys
         self.getdict = getdict
         self.params = params
         self.TimeZero = 0
-        self.TimeStep = 1
+        self.TimeStep = timeStep
         self.t = 0 #current time in TimeStep stemps
 
         #compile the model
@@ -33,8 +33,6 @@ class ModelState:
         self.opts['result_handling'] = 'memory'
         self.opts['CVode_options']['verbosity'] = 50 # No output
         self.opts['initialize'] = False # No output
-
-        self.TimeStep = self.model.get(timeStepVarName) #Update timestep
         self.admissibleVar = admissibleVar
         self.unsafeVar = unsafeVar
         return
@@ -95,10 +93,8 @@ class ModelState:
             self.model.event_update()
             self.set_model_time(mytime)
             # compute next state
-            print 'interval: ', self.__start_time(), self.__end_time()
             self.model.simulate(start_time=self.__start_time(), final_time=self.__end_time(), options=self.opts)
             return self.get_model_state()
-
 
 
     #check if the sate is admissible

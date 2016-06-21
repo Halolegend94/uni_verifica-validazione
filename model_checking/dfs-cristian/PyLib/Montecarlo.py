@@ -31,11 +31,12 @@ class Montecarlo:
         #create a random matrix generator
         gen = RandomActionGenerator(self.limits)
         result = []
-
+        print "Starting {} simulations..".format(M)
         for i in xrange(M): #run M simulations
-            print "Simultation: {}/{}".format(i + 1, M)
+            #print "Simultation: {}/{}".format(i + 1, M)
             #set up input object
             distMatrix = gen.randomMatrix(self.simulationTime, self.timePoints, onlyExtremes)
+            print distMatrix
             input_object = (self.input_vars, distMatrix)
             self.model.initialize()
             res = self.model.simulate(start_time=0, final_time=self.simulationTime, input=input_object, options=self.opts)
@@ -43,6 +44,6 @@ class Montecarlo:
             #check if there is an unsafe state
             y = self.model.get(self.unsafeVar)[0]
             if y == 1:
-                result.append([i, distMatrix]) #run number and input sequence at failure time
+                result.append(res) #run number and input sequence at failure time
             self.model.reset()
         return result;

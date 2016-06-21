@@ -24,16 +24,16 @@ algorithm
 y.n := x.n;
 
 y.depth := x.depth + 1;
-
+/*sck assumo sia l'id del rpocesso*/
 if (x.adm and (d.sck >= 1) and (d.sck <= 3) and (y.depth <= H))
 then y.adm := true;
 else y.adm := false;
 end if;
 
-
 end next;
 
 
+/*da qui in poi 0 senso*/
 initial equation
 
 x.adm = adm0;

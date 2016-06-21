@@ -13,8 +13,9 @@ class Search:
         nodevisited = 0
         AG = ActionGenerator(actions)
         x = model.get_model_next_state()
+        #check if the environment model has no admissible state
         if(not(model.isAdmissible(x))):
-            print "System has no admissible state"
+            print "environment model has no admissible state"
             sys.exit()
 
         state_time = {}
@@ -24,7 +25,6 @@ class Search:
         S.push(AG)
         currentDepth = 0;
         while(not(S.isEmpty())):
-            print "---->"
             a = S.pop() #get the last transition explored
             state_time = S.top()
             x = state_time['state']
@@ -35,18 +35,18 @@ class Search:
                 newState = model.get_model_next_state(x, out, currentTime)
                 if(model.isAdmissible(newState) and not(H.contains(newState)) and currentDepth < maxDepth):
                     newTime = model.advance_time(currentTime)
-                    print "new time> ", newTime
                     state_time = {}
                     state_time['state'] = newState
                     state_time['time'] = newTime
                     S.push(state_time)
                     if(model.isUnsafe(newState)):
-                        print "System does not satisfy requirements as shown by this trace: %r" % S.printstack()
+                        print "System does not satisfy requirements as shown by this trace:"
+                        S.printStack()
                         sys.exit()
                     S.push(ActionGenerator(actions))
                     currentDepth = currentDepth + 1
             else:
-                print "terminated"
                 nodevisited += 1
                 H.insert(x)
+                currentDepth = currentDepth - 1
                 state_time = S.pop()

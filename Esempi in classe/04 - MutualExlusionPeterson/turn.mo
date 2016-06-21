@@ -1,4 +1,4 @@
-
+/*pure qui il file è incompleto*/
 class Turn
 
 parameter Integer x0 = 0;
@@ -24,7 +24,7 @@ then
     if (turn == 2) and (x2 == 0) and (x1 == 1) then y := 1; end if;
 
 else
-     y := x;
+     y := x; //???
 end if;
 
 end next;

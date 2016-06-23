@@ -8,7 +8,7 @@ initial equation
    pre(y) = false;
    pre(z) = false;
 equation
-   z = (state1 == ProcessState.inside and state2 == ProcessState.inside);
+   z = (state1 == ProcessState.insideCS and state2 == ProcessState.insideCS);
    if edge(z) then
       y = true;
    else

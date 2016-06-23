@@ -1,6 +1,6 @@
 class ECU "Electrocni Control Unit"
 
-parameter Real T = 0.5;
+parameter Real T = 0.3;
 parameter Integer altitude_sampling = 25;
 
 Real initial_altitude;
@@ -30,9 +30,9 @@ function autopilot1
   input Real f2;
   output Real y;
 algorithm
-if (x < decreasetime) 
+if (x < decreasetime)
 then y := f1;
-else if (x < endtime) 
+else if (x < endtime)
      then y := f2;
      else y := 0.0;
      end if;
@@ -46,9 +46,9 @@ function autopilot2
   input Real f2;
    output Real y;
 algorithm
-if (v <= -10) 
+if (v <= -10)
 then y := f1;
-else if (v <= -1) 
+else if (v <= -1)
      then y := f2;
      else y := 0.0;
      end if;
@@ -63,12 +63,12 @@ function autopilot3
    output Real y;
 algorithm
 
-if (h >= 55000) 
+if (h >= 55000)
 then y := 0;
 else
-if (v <= -10) 
+if (v <= -10)
 then y := f1;
-else if (v <= -1) 
+else if (v <= -1)
      then y := f2;
      else y := 0.0;
      end if;
@@ -244,7 +244,7 @@ protected Real LoVal = -100;
 
 algorithm
 
-if (x <= LoVal) 
+if (x <= LoVal)
 then  y := LoVal;
 else  if (x >= HiVal)
       then y := HiVal;
@@ -273,15 +273,15 @@ vstep = T*velocity;
 astep = ad(acceleration);
 
 // estimate altitude from acceleration and adjust using low frequency actual measurement
-altitude = 
-if (pre(counter) == 0) 
+altitude =
+if (pre(counter) == 0)
 then measured_altitude
 else (pre(altitude) + T*velocity);
 
 // estimate velocity from acceleration and adjust using low frequency actual measurement
-velocity = 
-if (pre(counter) == 0) 
-then 
+velocity =
+if (pre(counter) == 0)
+then
   (measured_altitude - delay(measured_altitude, altitude_sampling*T))/(altitude_sampling*T)
 else
   (pre(velocity)  + T*astep);
@@ -295,4 +295,3 @@ end when;
 
 
 end ECU;
-

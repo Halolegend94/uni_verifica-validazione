@@ -12,7 +12,7 @@ class RandomActionGenerator:
 
     def randomSequence(self):
         out = [None] * self.length
-        for i in range(self.length):
+        for i in xrange(self.length):
             minV = self.limits[i][0]
             maxV = self.limits[i][1]
             t = (maxV - minV)

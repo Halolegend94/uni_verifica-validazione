@@ -2,9 +2,10 @@ from pymodelica import compile_fmu
 from pyfmi import load_fmu
 import math
 from RandomActionGenerator import RandomActionGenerator
+import sys
 class Montecarlo:
 
-    def __init__(self, files, modelName, input_vars, limits, simTime, numPoints, unsafeVar):
+    def __init__(self, files, modelName, input_vars, limits, simTime, numPoints, unsafeVar, param_names = None, param_values = None):
         if len(input_vars) != len(limits):
             print "input_vars and limits lengths differ"
             return
@@ -23,20 +24,21 @@ class Montecarlo:
         self.input_vars = input_vars
         return
 
-    def verify(self, delta, sigma, onlyExtremes):
+    def verify(self, delta, epsilon, onlyExtremes):
         #set some variables
 
         #compute number of trials
-        M = int(math.ceil(math.log(delta) / math.log(1 - sigma)))
+        M = int(math.ceil(math.log(delta) / math.log(1 - epsilon)))
         #create a random matrix generator
         gen = RandomActionGenerator(self.limits)
         result = []
         print "Starting {} simulations..".format(M)
         for i in xrange(M): #run M simulations
-            #print "Simultation: {}/{}".format(i + 1, M)
+            print "Simultation: {}/{}                \r".format(i + 1, M),
+            sys.stdout.flush()
             #set up input object
             distMatrix = gen.randomMatrix(self.simulationTime, self.timePoints, onlyExtremes)
-            print distMatrix
+            #print distMatrix
             input_object = (self.input_vars, distMatrix)
             self.model.initialize()
             res = self.model.simulate(start_time=0, final_time=self.simulationTime, input=input_object, options=self.opts)
@@ -46,4 +48,5 @@ class Montecarlo:
             if y == 1:
                 result.append(res) #run number and input sequence at failure time
             self.model.reset()
+        print ""
         return result;

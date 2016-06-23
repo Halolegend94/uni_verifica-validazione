@@ -10,10 +10,10 @@ import sys
 sys.path.append("../../../Utilities")
 import os
 import PlotData as plt
-model_name="ClosedSystem"
+model_name="prova"
 
 #sono caricati tutti i file ".mo" nella cartella
-model_files = [f for f in os.listdir(".") if ".mo" in f]
+model_files = ["prova.mo"]
 
 #input_object = (['noise', 'failures'], input_function)
 
@@ -24,4 +24,4 @@ opts = model.simulate_options()
 #opts['CVode_options']['maxh'] = 1.0e-4
 res = model.simulate(start_time=0, final_time=maxt, options=opts)
 
-plt.plotData(3, 2, ['proc1.myState', 'proc2.myState', 'proc1.ptime', 'proc2.ptime', 'mem.kr', 'm.y'], res)
+plt.plotData(3, 2, ['v'], res)

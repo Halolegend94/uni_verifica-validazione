@@ -1,14 +1,15 @@
-class ClosedSystem "The whole system"
+model ClosedSystem "The whole system"
+
    input Real noise;
    input Real failures;
 
    Monitor m;
    System s;
-   Environment e;
+   //Environment e;
 
 equation
-   s.d.noise = e.d.noise;
-   s.d.failures = e.d.failures;
+   s.d.noise = noise;
+   s.d.failures = failures;
    m.x = s.x;
 
 end ClosedSystem;

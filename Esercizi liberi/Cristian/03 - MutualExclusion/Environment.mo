@@ -5,17 +5,14 @@ end EnvironmentState;
 
 class Environment
 
-   EnvironmentState prec;
-   EnvironmentState current;
-
    parameter Boolean adm0 = true;
    parameter Integer depth0 = 0;
    constant Integer MaxDepth = 5;
-   parameter Integer T = 1;
+   parameter Real T = 1;
+   EnvironmentState prec, current;
 
    function nextState
       input EnvironmentState x;
-
       output EnvironmentState y;
 
    algorithm

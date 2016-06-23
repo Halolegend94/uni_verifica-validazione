@@ -1,18 +1,13 @@
 import sys
+import os
 sys.path.append("../../../model_checking/dfs-cristian")
+sys.path.append("../../../")
+from PyLib.Montecarlo import Montecarlo
+from Utilities.PlotData import plotData
+model_files = [f for f in os.listdir(".") if ".mo" in f]
 
-from PyLib.Search import Search
-from PyLib.ModelState import ModelState
-
-#statekeys
-statekeys = ['s.x', 'e.current.depth', 'e.current.adm', 's.pOpen']
-
-getdict = {}
-getdict['s.x0'] = 's.x'
-getdict['e.riverLoad0'] = 'e.d.riverLoad'
-getdict['ec.pOpen0'] = 'ec.pOpen'
-getdict['m.y0'] = 'm.y'
-
-inputs = ['e']
-
-m = ModelState(statekeys, getdict, inputs, sysName, timeStepVarName, admissibleVar, unsafeVar)
+m = Montecarlo(model_files, "ClosedSystem", ['noise', 'failures'], [[-1, 1], [-1, 1]], 1000, 10, 'm.y')
+res = m.verify(0.1, 0.01, False)
+print "errors: {}".format(len(res))
+if len(res) > 0:
+    plotData(2, 2, ['s.x', 'm.y'], res[0])

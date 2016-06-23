@@ -22,4 +22,5 @@ class Stack:
             return self.items[len(self.items) - 1]
 
     def printStack(self):
-        return ', '.join(map(str, self.items))
+        for s in self.items:
+            print s

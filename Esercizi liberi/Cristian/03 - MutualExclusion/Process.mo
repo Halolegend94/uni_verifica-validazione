@@ -1,12 +1,14 @@
 /*global definition*/
 type ProcessState = enumeration(outside, waiting, inside);
 
-class Process
+model Process
+
    parameter Integer ID = 0;
+   parameter ProcessState myState0 = ProcessState.outside;
    parameter Real T = 1;
    ProcessState myState;
-   ProcessState otherProcessState;
-   Integer turn;
+   input ProcessState otherProcessState;
+   input Integer turn;
 
    function nextState
       input ProcessState currentState;
@@ -18,7 +20,8 @@ class Process
    algorithm
       if(currentState ==  ProcessState.outside) then
          newState :=  ProcessState.waiting;
-      elseif(currentState ==  ProcessState.waiting and turn == ID) then
+      elseif (currentState ==  ProcessState.waiting and otherProcState == ProcessState.outside) or
+         (currentState ==  ProcessState.waiting and turn == ID) then
          newState :=  ProcessState.inside;
       elseif(currentState ==  ProcessState.inside) then
          newState :=  ProcessState.outside;
@@ -29,7 +32,7 @@ class Process
    end nextState;
 
 initial equation
-   myState =  ProcessState.outside;
+   myState =  myState0;
 
 equation
    when sample(0, T) then

@@ -1,4 +1,4 @@
-class Environment "This is a the environment of the system."
+model Environment "This is a the environment of the system."
    /*The environment can produce noise and cause failures*/
 
    parameter Real avg0 = 0;
@@ -9,7 +9,7 @@ class Environment "This is a the environment of the system."
    parameter Real failures0 = -1;
    parameter Real T = 0.25;
    constant Real omega = 10 * 3.14;
-   constant Integer H = 2;
+   constant Integer H = 20;
 
    EnvironmentState prec, current; //relevant states of the environment
    Disturb d; //disturb from the environment

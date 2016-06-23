@@ -1,6 +1,6 @@
 model ECU
 
-   parameter Real T = 50;
+   parameter Real T = 20;
    parameter Integer pOpen0 = 0;
    constant Real xMin = 50; //measured in Kl
    constant Real xMax = 1050;

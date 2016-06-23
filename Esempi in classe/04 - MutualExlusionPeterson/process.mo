@@ -3,7 +3,7 @@ class Process
 
 parameter Integer id = 1;
 parameter Integer x0 = 0;
-
+parameter Integer T = 0.2; //aggiunto da Cristian, mancava
 Integer x;
 Integer u;
 Integer k;

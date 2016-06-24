@@ -44,6 +44,9 @@ def display_variables(values, names):
     for i in range(n_plots):
         pyplot.subplot(n_cols, n_rows, i+1)
         pyplot.plot(values['time'], values[names[i]])
+        ymin, ymax = pyplot.ylim()
+        d = abs(ymax - ymin)
+        pyplot.ylim(ymin - (0.1 * d), ymax + (0.1 * d))
         pyplot.title(names[i])
     pyplot.show()
 

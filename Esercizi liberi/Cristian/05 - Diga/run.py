@@ -7,7 +7,7 @@ from pymodelica import compile_fmu
 from pyfmi import load_fmu
 
 import sys
-sys.path.append("../../../Utilities")
+sys.path.append("../../../model_checking/dfs-cristian/PyLib")
 import os
 import PlotData as plt
 import numpy as N

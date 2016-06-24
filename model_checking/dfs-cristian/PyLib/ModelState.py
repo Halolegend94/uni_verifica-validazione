@@ -32,7 +32,7 @@ class ModelState:
         self.opts = self.model.simulate_options()
         self.opts['result_handling'] = 'memory'
         self.opts['CVode_options']['verbosity'] = 50 # No output
-        self.opts['initialize'] = False # No output
+        self.opts['initialize'] = False
         self.admissibleVar = admissibleVar
         self.unsafeVar = unsafeVar
         return

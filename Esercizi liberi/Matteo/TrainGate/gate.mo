@@ -1,5 +1,7 @@
 model Gate
 	parameter Real g0 = 0;
+	parameter Real barVelocity = 10;
+
 	output Real g;
 	output Real gv;
 	Boolean open;
@@ -7,20 +9,19 @@ model Gate
 initial equation
 	g = g0;
 equation
-	der(g) = gv;
-	if (close == true) then
-		gv = -9;
+	gv = der(g);
+	if (close == true ) then
+		der(g) = -barVelocity;
 	elseif (open == true) then
-		gv = 9;
+		der(g) = barVelocity;
 	else
-		gv = 0;
+		der(g) = 0;
 	end if;
 
-/*
-	when (g < 0) then
-		g = 0;
+	when g >= 90 then
+		reinit(g, 90);
+	elsewhen g <= 0 then
+		reinit(g, 0);
 	end when;
-*/
-	// g [0,90]
-	// sample T = 1 -> g < 0
+
 end Gate;

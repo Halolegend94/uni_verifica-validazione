@@ -8,7 +8,7 @@ import numpy as N
 
 
 # ecu2 (only measure acceleration, discrete time estimation of velocity and position)
-fmu = compile_fmu('System', ['system.mo','train.mo','ecu.mo','gate.mo'])
+fmu = compile_fmu('System', ['system.mo','Train.mo','ecu.mo','gate.mo'])
 
 model = load_fmu(fmu)
 opts = model.simulate_options()

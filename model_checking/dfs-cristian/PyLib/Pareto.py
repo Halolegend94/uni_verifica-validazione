@@ -1,72 +1,93 @@
+import math
+import sys
+import numpy
+import os
 from pymodelica import compile_fmu
 from pyfmi import load_fmu
-import math
+from ActionGenerator import ActionGenerator
 from RandomActionGenerator import RandomActionGenerator
-import sys
+from PyLib.Montecarlo import Montecarlo
 
-class Pareto
+class Pareto:
 
-    def __init__(self, model_files, parameters, values, inputs, limits, monitor_var, sim_time, timepoints, delta, epsilon):
-        fmu = compile_fmu(modelName, model_files)
-        self.model = load_fmu(fmu)
-        self.opts = self.model.simulate_options()
-        self.opts = self.model.simulate_options()
-        self.opts['result_handling'] = 'memory'
-        self.opts['CVode_options']['verbosity'] = 100 # No output
-        self.opts['initialize'] = False # No output
+    def __init__(self, model_files, modelName, parameters, values, inputs, limits, monitor_var, sim_time, timepoints):
+        self.mca = Montecarlo(model_files, modelName, inputs, limits, sim_time, timepoints, monitor_var)
         self.monitor = monitor_var
-        self.params = params
+        self.params = parameters
         self.timepoints = timepoints
         self.values = values
         self.limits = limits
         self.inputs = inputs
-        self.delta = delta
-        self.epsilon = epsilon
         self.simTime = sim_time
         return
-
-    def findPoints(self):
+    '''
+    kpiFunctions: array that has the following format
+        [
+        function, [param indexes]
+        ...
+        ]
+    '''
+    def findFrontier(self, delta, epsilon, onlyExtremes, kpiFunctions):
+        act = ActionGenerator(self.values)
+        #compute number of trials
+        M = int(math.ceil(math.log(delta) / math.log(1 - epsilon)))
+        #create a random matrix generator
         gen = RandomActionGenerator(self.limits)
-        self.act = ActionGenerator(values)
+        matrices = []
+        for i in xrange(M):
+            matrices.append(gen.randomMatrix(self.simTime, self.timepoints, onlyExtremes))
+
+        '''
+        output format: list of vectors of the type
+            [# errors found, parameters' values, is on the frontier] if on the frontier ->  #errors = 0
+        '''
+
+        mca_outputs = [] #used to store run results
         current = act.next()
-        while(current != None):
-            #set parameters to the model
-            i = 0
-            for p in observed_vars:
-                self.model.set(p, current[i])
-                i = i + 1
+        print "starting {} * {} = {} simulations..".format(act.cardinality, M, M*act.cardinality)
+        i = 0
+        while(current != None): #for each combination of parameters..
+            result = self.mca.verify(delta, epsilon, onlyExtremes, False, self.params, current, matrices)
+            print "set {} of {} done.               \r".format(i+1, act.cardinality),
+            mca_outputs.append([len(result), current])
+            current = act.next()
+            i+=1
+        print ""
 
-            #simulations
-            #compute number of trials
-            M = int(math.ceil(math.log(self.delta) / math.log(1 - self.epsilon)))
-            #create a random matrix generator
-            gen = RandomActionGenerator(self.limits)
-            result = []
-            print "Starting {} simulations..".format(M)
-            for i in xrange(M): #run M simulations
-                print "Simultation: {}/{}                \r".format(i + 1, M),
-                sys.stdout.flush()
-                #set up input object
-                distMatrix = gen.randomMatrix(self.simulationTime, self.timePoints, onlyExtremes)
-                #print distMatrix
-                input_object = (self.input_vars, distMatrix)
-                self.model.initialize()
-                res = self.model.simulate(start_time=0, final_time=self.simulationTime, input=input_object, options=self.opts)
+        #compute params kpi values
+        print "computing kpi values.."
+        mappedKPIs = []
+        for val in mca_outputs:
+            params = val[1] #get parameters' values
+            mappedKPIsRow = []
+            for kpiFunc in kpiFunctions:
+                func = kpiFunc[0]
+                selectedParams = []
+                for ind in kpiFunc[1]:
+                    selectedParams.append(params[ind])
+                compVal = func(selectedParams)
+                mappedKPIsRow.append(compVal)
+            mappedKPIs.append(val + [mappedKPIsRow])
 
-                #check if there is an unsafe state
-                y = self.model.get(self.unsafeVar)[0]
-                if y == 1:
-                    result.append(res) #run number and input sequence at failure time
-                self.model.reset()
-            print ""
-            distMatrix = gen.randomMatrix(self.simTime, self.timepoints, False)
-            #print distMatrix
-            input_object = (self.inputs, distMatrix)
-            self.model.initialize()
-            res = self.model.simulate(start_time=0, final_time=self.simTime, input=input_object, options=self.opts)
-
-            #check if there is an unsafe state
-            y = self.model.get(self.monitor_var)[0]
-            if y == 1:
-                result.append(res) #run number and input sequence at failure time
-            self.model.reset()
+        #now we can compute the frontier
+        print "computing the frontier.."
+        output = []
+        numrows = len(mappedKPIs)
+        numcols = len(mappedKPIs[0][2])
+        for i in xrange(numrows):
+            undomined = False
+            if mappedKPIs[i][0] == 0: #parameters valid
+                undomined = True
+                for k in xrange(numrows):
+                    if mappedKPIs[k][0] > 0 or k == i: #params not valid
+                        continue
+                    t = False
+                    for j in xrange(numcols):
+                        if mappedKPIs[i][2][j] > mappedKPIs[k][2][j]:
+                            t = True #i non dominato da k
+                            break
+                    undomined = undomined and t
+                    if undomined == False: #i dominato da k
+                        break #non serve continuare il confronto
+            output.append(mappedKPIs[i] + [undomined])
+        return output

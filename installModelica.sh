@@ -25,13 +25,13 @@
 # set the HSLDir to that folder.
 # http://www.hsl.rl.ac.uk/download/coinhsl-archive-linux-x86_64/2014.01.17/
 #
-    HSLDir="/home/master/Software/coinhsl-archive-linux-c86_64-2014.01.17"
+    HSLDir="/home/myubuntu/Software/coinhsl-archive-linux-c86_64-2014.01.17"
 #
 # Set the instalation path (must be absolute)
 # !!! IMPORTANT !!!: Leave this path only for jmodelica. In case of update command, this folder will
 # be deleted and created again.
 #
-    InstallLocation="/home/master/Sviluppo/JModelica"
+    InstallLocation="/home/myubuntu/Sviluppo/JModelica"
 #
 # Set the link to the last stable version of JModelica (subversion repo)
 #
@@ -41,9 +41,7 @@
 # Oracle's JavaJVM must be installed (not openjdk)! Use the following commands to install Java
 # on your machine.
 #
-# sudo add-apt-repository ppa:webupd8team/java
-# sudo apt-get update
-# sudo apt-get install oracle-java8-installer -y
+# sudo add-apt-repository ppa:webupd8team/java -y && sudo apt-get update && sudo apt-get install oracle-java8-installer -y
 #
 # Now set the enviroment var JAVA_HOME to be the path to the jvm (it looks like: /usr/lin/jvm/<folder>)
 # in your shell config file (like .bashrc).
@@ -147,6 +145,10 @@ cd $InstallLocation/tmpBuild
 if [ $isAll == true ]; then
     #now get the last version of Ipopt (math libraries) from internet, by parsing its official page
     `curl http://www.coin-or.org/Ipopt/documentation/node12.html | grep -oE 'svn co.*?CoinIpopt'`
+     if [[ $? != 0 ]]; then
+       echo "Error while retrieving Ipopt!"
+       exit 1
+     fi
 
     #get external dependencies
     cd CoinIpopt/ThirdParty/Blas

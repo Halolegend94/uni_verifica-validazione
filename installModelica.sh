@@ -25,13 +25,13 @@
 # set the HSLDir to that folder.
 # http://www.hsl.rl.ac.uk/download/coinhsl-archive-linux-x86_64/2014.01.17/
 #
-    HSLDir="/home/cristian/Software/coinhsl-archive-linux-c86_64-2014.01.17"
+    HSLDir="/home/master/Software/coinhsl-archive-linux-c86_64-2014.01.17"
 #
 # Set the instalation path (must be absolute)
 # !!! IMPORTANT !!!: Leave this path only for jmodelica. In case of update command, this folder will
 # be deleted and created again.
 #
-    InstallLocation="/home/cristian/Sviluppo/JMProva"
+    InstallLocation="/home/master/Sviluppo/JModelica"
 #
 # Set the link to the last stable version of JModelica (subversion repo)
 #
@@ -68,12 +68,12 @@ elif [ "$2" != "all" ] && [ "$2" != "jmodelica_latest" ] && [ "$2" != "jmodelica
 fi
 
 isUpdate=false
-if [ "$1" != "update" ]; then
+if [ "$1" == "update" ]; then
     isUpdate=true
 fi
 
 isAll=false
-if [ "$2" != "all" ]; then
+if [ "$2" == "all" ]; then
     isAll=true
 fi
 
@@ -95,8 +95,8 @@ sudo apt-get -y install python-nose
 sudo apt-get -y install python-jpype
 sudo apt-get -y install zlib1g-dev
 
-if [ $isUpdate = true ]; then
-    if [ $isAll = true ]; then
+if [ $isUpdate == true ]; then
+    if [ $isAll == true ]; then
         #clean the directory
         echo "!! IMPORTANT !!"
         echo "I'm going to delete the installation folder and create it again from scratch. Proceed? [y/n]"
@@ -127,7 +127,7 @@ if ! [ -d $InstallLocation/tmpBuild ]; then
    mkdir $InstallLocation/tmpBuild -p
 fi
 
-if [ $isUpdate ] && ! [ $isAll ]; then
+if [ $isUpdate == true ] && ! [ $isAll == true ]; then
     #recopy CoinIpoptBuild folder
     cp -r $InstallLocation/../_tmpCoinIpoptBuild $InstallLocation/CoinIpoptBuild
     if [ $? != 0 ]; then
@@ -144,7 +144,7 @@ cd $InstallLocation/tmpBuild
 ##                                       IPOPT
 ##
 ###################################################################################################
-if [ $isAll ]; then
+if [ $isAll == true ]; then
     #now get the last version of Ipopt (math libraries) from internet, by parsing its official page
     `curl http://www.coin-or.org/Ipopt/documentation/node12.html | grep -oE 'svn co.*?CoinIpopt'`
 
@@ -188,13 +188,18 @@ fi
 ###################################################################################################
 latestVersion="https://svn.jmodelica.org/trunk"
 chosenVersion=""
-if [ "$2" != "jmodelica_latest" ]; then
+if [ "$2" == "jmodelica_latest" ]; then
     chosenVersion=$latestVersion
 else
     chosenVersion=$StableJModelica
 fi
 
 svn co $chosenVersion JMSrc #copy repository
+if [[ $? != 0 ]]; then
+   echo "Error downloading Jmodelica repo!"
+   exit 1
+fi
+
 cd JMSrc
 mkdir build
 cd build
